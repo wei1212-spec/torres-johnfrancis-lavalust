@@ -14,7 +14,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --lava: #0ae951;
+            --lava: git #e9720a;
             --lava-dim: #2b6201;
             --lava-glow: rgba(239, 235, 9, 0.15);
             --lava-glow-strong: rgba(89, 87, 1, 0.25);
@@ -574,7 +574,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 <div class="hero wrap">
     <div class="badge">v<?php echo config_item('VERSION') ?? '4.x'; ?> — Now Available</div>
     <h1>
-        <span class="word-lava">Green</span><span class="word-lust">Updated</span><br>Framework
+        <span class="word-lava">Lava</span><span class="word-lust">Lust</span><br>Framework
     </h1>
     <p class="hero-sub">
         A lightweight, expressive PHP MVC framework built for developers who want structure without the bloat.
