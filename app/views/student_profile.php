@@ -19,6 +19,9 @@ function student_profile_escape($value) {
         .top { background: var(--navy); color: var(--white); padding: 46px 52px; position: relative; }
         .top::after { background: var(--gold); content: ''; height: 8px; left: 0; position: absolute; right: 0; top: 0; }
         .top a { color: #b9d4ee; font-size: .82rem; text-decoration: none; }
+        .protected-badge { align-items: center; background: rgba(229,173,66,.14); border: 1px solid rgba(229,173,66,.65); color: #f4ce78; display: inline-flex; font-size: .68rem; font-weight: 700; gap: 9px; letter-spacing: .12em; margin-top: 24px; padding: 9px 12px; text-transform: uppercase; }
+        .lock { border: 2px solid currentColor; border-radius: 2px; display: inline-block; height: 12px; position: relative; width: 13px; }
+        .lock::before { border: 2px solid currentColor; border-bottom: 0; border-radius: 8px 8px 0 0; content: ''; height: 8px; left: 1px; position: absolute; top: -9px; width: 7px; }
         h1 { font-size: clamp(2.4rem, 7vw, 4.8rem); font-weight: 400; letter-spacing: -.04em; margin: 42px 0 8px; }
         .top p { color: #b9c8d8; margin: 0; }
         .body { padding: 44px 52px 52px; }
@@ -32,7 +35,7 @@ function student_profile_escape($value) {
 </head>
 <body>
 <main class="page"><article class="card">
-    <header class="top"><a href="<?= student_profile_escape(site_url('student')) ?>">← Back to Student Desk</a><h1>Student<br>Profile</h1><p><?= student_profile_escape($student['student_id']) ?> · <?= student_profile_escape($student['course']) ?></p></header>
+    <header class="top"><a href="<?= student_profile_escape(site_url('student')) ?>">← Back to Student Desk</a><div class="protected-badge"><span class="lock" aria-hidden="true"></span>Middleware protected route</div><h1>Student<br>Profile</h1><p><?= student_profile_escape($student['student_id']) ?> · <?= student_profile_escape($student['course']) ?></p></header>
     <section class="body"><div class="grid">
         <div class="item"><label>Full name</label><p><?= student_profile_escape($student['name']) ?></p></div>
         <div class="item"><label>Email</label><p><?= student_profile_escape($student['email']) ?></p></div>
