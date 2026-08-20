@@ -41,8 +41,8 @@ function student_escape($value) {
     <section class="hero">
         <div>
             <div class="eyebrow">Personal academic index</div>
-            <h1>Meet<br><?= student_escape($student['name']) ?>.</h1>
-            <p>A small student information page built with LavaLust routing, controllers, views, and middleware.</p>
+            <h1>Hi, I'm<br><?= student_escape($student['name']) ?>.</h1>
+            <p>As an IT student, I am passionate about technology, problem-solving, and innovation. I strive to turn ideas into useful solutions while continuously learning, improving my skills, and preparing to make a meaningful impact through technology.</p>
         </div>
         <div class="note"><span>Current focus</span><?= student_escape($student['interests']) ?></div>
     </section>
