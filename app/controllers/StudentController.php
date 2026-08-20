@@ -6,14 +6,14 @@ class StudentController extends Controller
     private function student_data()
     {
         return [
-            'student_id' => '2026-1842',
-            'name' => 'Alexis Rivera',
+            'student_id' => 'MCC2022-0253',
+            'name' => 'John Francis Torres',
             'course' => 'BS Information Technology',
-            'year' => '2nd Year',
-            'section' => 'Web Systems - B',
-            'email' => 'alexis.rivera@example.com',
-            'location' => 'Manila, Philippines',
-            'interests' => 'Interface design, PHP, and digital illustration',
+            'year' => '3rd Year',
+            'section' => '3F3',
+            'email' => 'Johnfrancistorres12@gmail.com',
+            'location' => 'Oriental Mindoro, Philippines',
+            'interests' => 'Online games, Anime, and Running',
         ];
     }
 
