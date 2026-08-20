@@ -566,6 +566,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <div class="nav-links">
         <a href="https://lavalust.netlify.app/docs/" target="_blank">Docs</a>
         <a href="https://github.com/ronmarasigan/LavaLust" target="_blank">GitHub</a>
+        <a href="<?= site_url('student/profile') ?>" class="btn-nav">Student Profile</a>
         <a href="https://lavalust.netlify.app/docs/" target="_blank" class="btn-nav">Get Started →</a>
     </div>
 </nav>
