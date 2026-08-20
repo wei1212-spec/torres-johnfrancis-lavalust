@@ -13,7 +13,7 @@ class StudentController extends Controller
             'section' => '3F3',
             'email' => 'Johnfrancistorres12@gmail.com',
             'location' => 'Oriental Mindoro, Philippines',
-            'interests' => 'Online games, Anime, and Running',
+            'interests' => 'Online games, Anime, and Runnning',
         ];
     }
 
