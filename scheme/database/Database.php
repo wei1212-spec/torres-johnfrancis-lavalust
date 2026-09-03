@@ -269,12 +269,13 @@ class Database {
         );
 
         if ($driver === 'mysql' && !empty($database_config['ssl_ca'])) {
+            $verify_server_certificate = $database_config['ssl_verify'] ?? true;
             if (class_exists('Pdo\\Mysql')) {
                 $options[\Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
-                $options[\Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = true;
+                    $options[\Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = $verify_server_certificate;
             } else {
                 $options[PDO::MYSQL_ATTR_SSL_CA] = $database_config['ssl_ca'];
-                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+                    $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = $verify_server_certificate;
             }
         }
 

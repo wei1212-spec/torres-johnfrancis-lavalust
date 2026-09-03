@@ -66,6 +66,7 @@ $database['main'] = array(
     'database' => getenv('DB_NAME') ?: 'mydb',
     'charset'	=> '',
     'ssl_ca' => getenv('DB_SSL_CA') ?: '',
+    'ssl_verify' => filter_var(getenv('DB_SSL_VERIFY_SERVER_CERT') ?: 'true', FILTER_VALIDATE_BOOLEAN),
     'dbprefix'	=> '',
     // Optional for SQLite
     'path'      => ''
