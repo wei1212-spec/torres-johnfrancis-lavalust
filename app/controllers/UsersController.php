@@ -5,6 +5,7 @@ class UsersController extends Controller
 {
     public function index()
     {
+        $this->call->model('UsersModel');
         $users = UsersModel::all();
         $this->call->view('users', ['users' => $users]);
     }
