@@ -6,7 +6,7 @@ class StudentController extends Controller
     private function student_data()
     {
         return [
-            'student_id' => 'MCC2022-0253',
+            'student_id' => 'MCC2024-0253',
             'name' => 'John Francis Torres',
             'course' => 'BS Information Technology',
             'year' => '3rd Year',
