@@ -269,6 +269,13 @@ class Database {
         );
 
         if ($driver === 'mysql' && !empty($database_config['ssl_ca'])) {
+            if (!is_readable($database_config['ssl_ca'])) {
+                throw new PDOException(
+                    'MySQL SSL CA file is not readable at ' . $database_config['ssl_ca']
+                    . ' (host ' . $host . ', port ' . $port . ').'
+                );
+            }
+
             if (class_exists('Pdo\\Mysql')) {
                 $options[\Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
             } else {
