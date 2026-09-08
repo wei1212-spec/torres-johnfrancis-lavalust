@@ -268,22 +268,22 @@ class Database {
             PDO::ATTR_EMULATE_PREPARES   => false,
         );
 
-        if ($driver === 'mysql' && !empty($database_config['ssl_ca'])) {
-            if (!is_readable($database_config['ssl_ca'])) {
-                throw new PDOException(
-                    'MySQL SSL CA file is not readable at ' . $database_config['ssl_ca']
-                    . ' (host ' . $host . ', port ' . $port . ').'
-                );
-            }
-
-            if (class_exists('Pdo\\Mysql')) {
-                $options[\Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
-            } else {
-                $options[PDO::MYSQL_ATTR_SSL_CA] = $database_config['ssl_ca'];
-            }
-        }
-
         try {
+            if ($driver === 'mysql' && !empty($database_config['ssl_ca'])) {
+                if (!is_readable($database_config['ssl_ca'])) {
+                    throw new PDOException(
+                        'MySQL SSL CA file is not readable at ' . $database_config['ssl_ca']
+                        . ' (host ' . $host . ', port ' . $port . ').'
+                    );
+                }
+
+                if (class_exists('Pdo\\Mysql')) {
+                    $options[\Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
+                } else {
+                    $options[PDO::MYSQL_ATTR_SSL_CA] = $database_config['ssl_ca'];
+                }
+            }
+
             $this->db = new PDO($dsn, $username, $password, $options);
             $this->driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
         } catch (Exception $e) {
