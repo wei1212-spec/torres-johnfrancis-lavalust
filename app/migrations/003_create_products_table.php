@@ -19,38 +19,41 @@ class Create_products_table {
         $this->_lava->dbforge
             ->add_field([
                 'id' => [
-                    'type' => 'INT',
-                    'constraint' => 11,
-                    'unsigned' => TRUE,
+                    'type'           => 'INT',
+                    'constraint'     => 11,
+                    'unsigned'       => TRUE,
                     'auto_increment' => TRUE,
-                    'null' => FALSE,
+                    'null'           => FALSE,
                 ],
                 'product_name' => [
-                    'type' => 'VARCHAR',
+                    'type'       => 'VARCHAR',
                     'constraint' => 100,
-                    'null' => FALSE,
+                    'null'       => FALSE,
                 ],
                 'description' => [
                     'type' => 'TEXT',
-                    'null' => FALSE,
+                    'null' => TRUE,
                 ],
                 'price' => [
-                    'type' => 'DECIMAL',
+                    'type'       => 'DECIMAL',
                     'constraint' => '10,2',
-                    'null' => FALSE,
+                    'null'       => FALSE,
+                    'default'    => 0,
                 ],
                 'quantity' => [
-                    'type' => 'INT',
+                    'type'       => 'INT',
                     'constraint' => 11,
-                    'null' => FALSE,
+                    'null'       => FALSE,
+                    'default'    => 0,
                 ],
                 'created_at' => [
-                    'type' => 'TIMESTAMP',
-                    'null' => FALSE,
+                    'type'    => 'TIMESTAMP',
+                    'null'    => FALSE,
                     'default' => 'CURRENT_TIMESTAMP',
                 ],
             ])
             ->add_key('id', primary: TRUE)
+            ->add_key('product_name', name: 'product_name_idx')
             ->create_table('products');
     }
 
