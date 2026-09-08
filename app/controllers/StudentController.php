@@ -8,7 +8,7 @@ class StudentController extends Controller
         return [
             'student_id' => 'MCC2024-0253',
             'name' => 'John Francis Torres',
-            'course' => 'BS Information Technology',
+            'course' => 'Information Technology',
             'year' => '3rd Year',
             'section' => '3F3',
             'email' => 'Johnfrancistorres12@gmail.com',
