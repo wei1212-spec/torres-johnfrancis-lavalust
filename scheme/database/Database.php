@@ -269,7 +269,7 @@ class Database {
         );
 
         try {
-            if ($driver === 'mysql' && !empty($database_config['ssl_ca'])) {
+            if ($driver === 'mysql' && (!empty($database_config['ssl_ca']) || !empty($database_config['ssl_ca_content']))) {
                 if (!is_readable($database_config['ssl_ca']) && !empty($database_config['ssl_ca_content'])) {
                     $temporary_ca = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'lavalust-aiven-ca.pem';
                     if (file_put_contents($temporary_ca, $database_config['ssl_ca_content']) === false) {
