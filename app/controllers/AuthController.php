@@ -95,11 +95,13 @@ class AuthController extends Controller
      */
     public function store_register()
     {
+        $firstname = trim($_POST['firstname'] ?? '');
+        $lastname  = trim($_POST['lastname'] ?? '');
         $username = trim($_POST['username'] ?? '');
         $email    = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
 
-        if ($username === '' || $email === '' || $password === '') {
+        if ($firstname === '' || $lastname === '' || $username === '' || $email === '' || $password === '') {
             $_SESSION['auth_error'] = 'All fields are required.';
             redirect('register');
             return;
@@ -127,6 +129,8 @@ class AuthController extends Controller
         }
 
         $created = $this->UsersModel->insert([
+            'firstname' => $firstname,
+            'lastname'  => $lastname,
             'username'  => $username,
             'email'     => $email,
             'password'  => password_hash($password, PASSWORD_DEFAULT),
