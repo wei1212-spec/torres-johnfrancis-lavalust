@@ -66,14 +66,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <?php endif; ?>
 
     <form method="post" action="<?= base_url('register'); ?>">
-        <label for="firstname">First Name</label>
-        <input type="text" id="firstname" name="firstname" autocomplete="given-name" required autofocus>
-
-        <label for="lastname">Last Name</label>
-        <input type="text" id="lastname" name="lastname" autocomplete="family-name" required>
-
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" autocomplete="username" required>
+        <input type="text" id="username" name="username" autocomplete="username" required autofocus>
 
         <label for="email">Email</label>
         <input type="email" id="email" name="email" autocomplete="email" required>
