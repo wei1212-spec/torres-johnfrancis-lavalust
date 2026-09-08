@@ -7,6 +7,7 @@ class AuthController extends Controller
     {
         if (!empty($_SESSION['authenticated_user'])) {
             redirect('products');
+            exit;
         }
 
         $error = null;
@@ -23,6 +24,7 @@ class AuthController extends Controller
                     'username' => $user['username'],
                 ]);
                 redirect('products');
+                exit;
             }
 
             $error = 'The username or password is incorrect.';
@@ -35,5 +37,6 @@ class AuthController extends Controller
     {
         $this->call->session->unset_userdata('authenticated_user');
         redirect('login');
+        exit;
     }
 }

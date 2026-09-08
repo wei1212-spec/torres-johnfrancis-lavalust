@@ -38,6 +38,7 @@ class ProductController extends Controller
         $this->call->model('ProductModel');
         ProductModel::insert($data);
         redirect('products');
+        exit;
     }
 
     public function edit($id)
@@ -82,6 +83,7 @@ class ProductController extends Controller
 
         ProductModel::update((int) $id, $data);
         redirect('products');
+        exit;
     }
 
     public function delete($id)
@@ -89,6 +91,7 @@ class ProductController extends Controller
         $this->call->model('ProductModel');
         ProductModel::delete((int) $id);
         redirect('products');
+        exit;
     }
 
     private function product_data()
