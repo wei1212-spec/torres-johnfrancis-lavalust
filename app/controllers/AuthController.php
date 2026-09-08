@@ -126,13 +126,19 @@ class AuthController extends Controller
             return;
         }
 
-        $this->UsersModel->insert([
+        $created = $this->UsersModel->insert([
             'username'  => $username,
             'email'     => $email,
             'password'  => password_hash($password, PASSWORD_DEFAULT),
             'role'      => 'user',
             'is_active' => 1,
         ]);
+
+        if ($created === false) {
+            $_SESSION['auth_error'] = 'Unable to create the account. Please try again.';
+            redirect('register');
+            return;
+        }
 
         redirect('login?registered=1');
     }
