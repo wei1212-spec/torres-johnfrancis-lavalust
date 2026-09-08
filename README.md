@@ -183,6 +183,23 @@ $database['main'] = array(
 $config['base_url'] = 'http://localhost:3000/';
 ```
 
+## Product CRUD Exercise
+
+This project includes authenticated product management at `/products`. Copy
+`.env.example` to `.env`, set the Aiven MySQL credentials, and set a strong
+`ADMIN_PASSWORD`. Run `php console/cli.php db:migrate` before signing in;
+migrations `003` and `004` create the products table and the first admin account
+when the users table is empty.
+
+For Render, use the included `render.yaml` or create a Docker web service from
+this repository. Add the Aiven values as Render environment variables and mount
+the downloaded Aiven CA certificate at `/etc/secrets/aiven-ca.pem`. Never add
+`.env`, database passwords, or private certificates to Git.
+
+The login is available at `/login`. Authenticated users can create, read, edit,
+and delete products. Product writes use POST requests and all product routes are
+protected by the `auth` middleware.
+
 ---
 
 ## Building a REST API
