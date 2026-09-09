@@ -1,73 +1,30 @@
-<?php defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
-function product_escape($value) { return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8'); }
-?>
-<!DOCTYPE html>
+<?php defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed'); ?>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Products | Product Desk</title>
     <style>
-        :root { --ink: #172126; --muted: #657277; --paper: #f5f1e8; --panel: #fffdf8; --line: #d8d0c1; --coral: #e85d46; --teal: #176b68; }
-        * { box-sizing: border-box; }
-        body { margin: 0; min-height: 100vh; background: var(--paper); color: var(--ink); font-family: Arial, sans-serif; }
-        .shell { max-width: 1120px; margin: auto; padding: 2rem 1.5rem 4rem; }
-        header { display: flex; align-items: end; justify-content: space-between; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--ink); }
-        .eyebrow { margin: 0 0 .5rem; color: var(--coral); font: 700 .72rem monospace; letter-spacing: .12em; text-transform: uppercase; }
-        h1 { margin: 0; font: 400 clamp(2.8rem, 7vw, 5.5rem)/.9 Georgia, serif; }
-        .actions { display: flex; align-items: center; gap: .75rem; }
-        a, button { color: var(--teal); font-weight: 700; text-decoration: none; }
-        .button { padding: .7rem .9rem; background: var(--teal); color: white; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
-        .link-button { padding: 0; border: 0; background: none; cursor: pointer; font-size: .85rem; }
-        .table-wrap { margin-top: 2rem; overflow-x: auto; background: var(--panel); border: 1px solid var(--line); box-shadow: 10px 10px 0 rgba(23, 33, 38, .08); }
-        table { width: 100%; min-width: 760px; border-collapse: collapse; }
-        th, td { padding: 1rem 1.1rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-        th { color: var(--muted); background: #eeeadf; font: 700 .7rem monospace; letter-spacing: .08em; text-transform: uppercase; }
-        td { font-size: .95rem; }
-        td:first-child { color: var(--coral); font-family: monospace; }
-        tbody tr:last-child td { border-bottom: 0; }
-        .description { max-width: 300px; color: var(--muted); line-height: 1.45; }
-        .row-actions { white-space: nowrap; }
-        .row-actions a { margin-right: 1rem; font-size: .82rem; }
-        .empty { padding: 3rem; color: var(--muted); text-align: center; }
-        @media (max-width: 620px) { .shell { padding: 1.25rem 1rem 3rem; } header { align-items: start; flex-direction: column; } .actions { width: 100%; justify-content: space-between; } }
+        :root { --ink: #17212b; --muted: #65727e; --paper: #f4f0e8; --panel: #fffdf8; --line: #ded7cb; --accent: #d97706; --danger: #b42318; }
+        * { box-sizing: border-box; } body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top right, #fff8e8, var(--paper) 45%); color: var(--ink); font: 16px/1.5 Georgia, serif; }
+        header, main { width: min(1100px, calc(100% - 40px)); margin: auto; } header { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 30px 0; } h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; } .eyebrow { margin: 0 0 6px; color: var(--accent); font: 700 .78rem/1.2 Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+        a, button { font: 700 .9rem Arial, sans-serif; } a { color: inherit; } .button { display: inline-block; padding: 10px 14px; border-radius: 6px; text-decoration: none; background: var(--accent); color: #fff; } .ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+        .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; } .user { color: var(--muted); } .logout { display: inline; } .logout button { padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+        .notice { margin-bottom: 18px; padding: 12px 14px; border-left: 4px solid #198754; background: #e8f5ed; color: #14532d; } .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: 0 12px 28px rgba(70, 55, 35, .08); } table { width: 100%; border-collapse: collapse; min-width: 720px; } th, td { padding: 15px 16px; text-align: left; border-bottom: 1px solid var(--line); } th { color: var(--muted); font: 700 .75rem Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; } tr:last-child td { border-bottom: 0; } .description { max-width: 330px; color: var(--muted); } .actions { white-space: nowrap; } .actions a { margin-right: 12px; color: var(--accent); } .delete { display: inline; } .delete button { padding: 0; border: 0; background: none; color: var(--danger); cursor: pointer; } .empty { padding: 38px; text-align: center; color: var(--muted); }
+        @media (max-width: 600px) { header { align-items: flex-start; flex-direction: column; } .toolbar { align-items: flex-start; flex-direction: column; } main, header { width: min(100% - 28px, 1100px); } }
     </style>
 </head>
 <body>
-<main class="shell">
-    <header>
-        <div><p class="eyebrow">LavaLust / Inventory</p><h1>Products</h1></div>
-        <div class="actions">
-            <a class="button" href="<?= product_escape(site_url('products/create')) ?>">Add product</a>
-            <form method="post" action="<?= product_escape(site_url('logout')) ?>"><button class="link-button" type="submit">Sign out</button></form>
-        </div>
-    </header>
-    <div class="table-wrap">
-        <?php if (empty($products)): ?>
-            <div class="empty">No products yet. Add the first item to begin.</div>
-        <?php else: ?>
-            <table>
-                <thead><tr><th>ID</th><th>Product</th><th>Description</th><th>Price</th><th>Quantity</th><th>Actions</th></tr></thead>
-                <tbody>
-                <?php foreach ($products as $product): ?>
-                    <tr>
-                        <td><?= product_escape($product['id']) ?></td>
-                        <td><?= product_escape($product['product_name']) ?></td>
-                        <td class="description"><?= product_escape($product['description']) ?></td>
-                        <td><?= number_format((float) $product['price'], 2) ?></td>
-                        <td><?= product_escape($product['quantity']) ?></td>
-                        <td class="row-actions">
-                            <a href="<?= product_escape(site_url('products/edit/' . $product['id'])) ?>">Edit</a>
-                            <form method="post" action="<?= product_escape(site_url('products/delete/' . $product['id'])) ?>" style="display:inline" onsubmit="return confirm('Delete this product?');">
-                                <button class="link-button" type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
-    </div>
+<header><div><p class="eyebrow">Inventory</p><h1>Products</h1></div><a class="button" href="<?= site_url('products/create'); ?>">Add product</a></header>
+<main>
+    <div class="toolbar"><span class="user">Signed in as <?= htmlspecialchars($_SESSION['username'] ?? 'user'); ?></span><form class="logout" method="post" action="<?= site_url('logout'); ?>"><button type="submit">Sign out</button></form></div>
+    <?php if (!empty($message)): ?><div class="notice" role="status">Product <?= htmlspecialchars($message); ?>.</div><?php endif; ?>
+    <div class="table-wrap"><table><thead><tr><th>Name</th><th>Description</th><th>Price</th><th>Quantity</th><th>Created</th><th>Actions</th></tr></thead><tbody>
+    <?php if (!empty($products)): foreach ($products as $product): ?>
+        <tr><td><strong><?= htmlspecialchars($product['product_name']); ?></strong></td><td class="description"><?= htmlspecialchars($product['description'] ?? ''); ?></td><td><?= number_format((float) $product['price'], 2); ?></td><td><?= (int) $product['quantity']; ?></td><td><?= htmlspecialchars($product['created_at'] ?? ''); ?></td><td class="actions"><a href="<?= site_url('products/edit/' . (int) $product['id']); ?>">Edit</a><form class="delete" method="post" action="<?= site_url('products/delete/' . (int) $product['id']); ?>" onsubmit="return confirm('Delete this product?');"><button type="submit">Delete</button></form></td></tr>
+    <?php endforeach; else: ?><tr><td class="empty" colspan="6">No products yet. Add your first product to get started.</td></tr><?php endif; ?>
+    </tbody></table></div>
 </main>
 </body>
 </html>
