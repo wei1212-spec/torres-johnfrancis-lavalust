@@ -15,6 +15,9 @@ class MigrateCommand {
         if (!defined('ROOT_DIR')) {
             define('ROOT_DIR', $root_dir);
         }
+        if (!defined('SYSTEM_DIR')) {
+            define('SYSTEM_DIR', $root_dir . 'scheme' . DIRECTORY_SEPARATOR);
+        }
         if (!defined('PREVENT_DIRECT_ACCESS')) {
             define('PREVENT_DIRECT_ACCESS', true);
         }
@@ -23,7 +26,7 @@ class MigrateCommand {
         require_once $root_dir . 'scheme/kernel/LavaLust.php';
         ob_end_clean();
 
-        lava_instance()->call->migration();
-        lava_instance()->migration->migrate();
+        $migration = load_class('migration', 'libraries');
+        $migration->migrate();
     }
 }
