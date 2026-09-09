@@ -6,16 +6,16 @@ class StudentController extends Controller
 {
     
     private $student = [
-        'student_id'  => 'MCC2024-00104', 
-        'name'        => ', jhon Cyrus C.',
+        'student_id'  => 'MCC2022-0253', 
+        'name'        => 'Torres, John Francis R.',
         'course'      => 'BSIT',
         'year'        => '3rd Year',
         'section'     => '3-F3',
-        'email'       => 'rhemzjhoncyruscapostol@gmail.com',
-        'address'     => 'Puerto Galera',
-        'contact'     => '0981-272-9490',
+        'email'       => 'johnfrancistorres12@gmail.com',
+        'address'     => 'Naujan',
+        'contact'     => '09543221675',
         'skills'      => 'PHP, JavaScript, UI Design',
-        'bio'         => 'Kaya ko, kaya ko! I am a passionate and dedicated student with a strong interest in web development and programming. I enjoy learning new technologies and applying them to real-world projects. In my free time, I like to explore new places, read tech blogs, and work on personal coding projects.',
+        'bio'         => '"Dare to Dream, Dare to Learn!" , "Curiosity Fuels Wisdom!" ,"From Aspiration to Graduation!"',
     ];
 
   

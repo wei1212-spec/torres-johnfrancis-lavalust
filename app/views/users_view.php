@@ -9,143 +9,212 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <title>User Directory | LavaLust</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #17212b;
-    }
-    * { box-sizing: border-box; }
-    body {
-            min-height: 100vh;
-            color: var(--ink);
-            background: var(--paper);
-            font-family: 'DM Sans', sans-serif;
+            --bg: #07111f;
+            --bg-alt: #0d1b2a;
+            --panel: rgba(15, 23, 42, 0.8);
+            --line: rgba(148, 163, 184, 0.2);
+            --primary: #60a5fa;
+            --primary-strong: #2563eb;
+            --accent: #8b5cf6;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --shadow: 0 30px 60px rgba(15, 23, 42, 0.45);
         }
-        .shell { min-height: 100vh; display: grid; grid-template-columns: 232px 1fr; }
-    .brand { display: flex; align-items: center; gap: 10px; margin: 0 10px 52px; color: #fff; text-decoration: none; }
-    .brand-mark { display: grid; width: 34px; height: 34px; place-items: center; color: var(--ink); background: var(--yellow); border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
-    .brand-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -.03em; }
-    .nav { display: grid; gap: 6px; }
-    .nav a { display: flex; align-items: center; gap: 12px; padding: 12px 13px; color: #a9c5c1; border-radius: 9px; font-size: .88rem; text-decoration: none; }
-    .nav a:hover, .nav a.active { color: #fff; background: #215354; }
-    main { padding: 38px clamp(24px, 5vw, 72px) 58px; overflow: hidden; }
-    .topline { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 42px; }
-    .crumb { color: var(--muted); font-size: .8rem; }
-    .directory { background: var(--white); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
-    .directory-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 24px; border-bottom: 1px solid var(--line); }
-    .directory-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; }
-        <section class="directory" aria-label="Users list">
-            <div class="directory-head">
-                <span class="directory-title">All members</span>
-                    <thead>
-                        <tr><th scope="col">Member</th><th scope="col">Email</th><th scope="col">Username</th><th scope="col">Member ID</th></tr>
-                    </thead>
-                    <?php if (!empty($users)): ?>
-                        <?php foreach ($users as $user): ?>
-                            <?php $initials = strtoupper(substr($user['firstname'], 0, 1) . substr($user['lastname'], 0, 1)); ?>
-                                <td><div class="person"><span class="avatar"><?= htmlspecialchars($initials); ?></span><span class="name"><?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']); ?></span></div></td>
-                                <td class="email"><?= htmlspecialchars($user['email']); ?></td>
-                                <td class="username">@<?= htmlspecialchars($user['username']); ?></td>
-                                <td class="id">#<?= htmlspecialchars($user['id']); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr><td colspan="4" class="empty">No users found.</td></tr>
-                    <?php endif; ?>
-                </table>
-            </div>
-        </section>
-    </main>
-    </div>
-<script>
-    const search = document.getElementById('user-search');
-    const rows = document.querySelectorAll('#user-rows tr');
-    search.addEventListener('input', function () {
-    });
-</script>
-</body>
-</html>
-<?php
-defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
-    <style>
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #f4f7fb 0%, #e8edf5 100%);
-            color: #1f2937;
             min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 30%),
+                linear-gradient(135deg, var(--bg) 0%, #0b1220 100%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            padding: 32px 18px 56px;
+        }
+
+        .shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .topbar {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 3rem 1.5rem;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 26px;
+            flex-wrap: wrap;
         }
-        h1 { margin-bottom: 1.5rem; font-size: 1.6rem; }
-        table {
-            background: #fff;
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 800px;
-            border-radius: 12px;
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: -0.06em;
+        }
+
+        .summary {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .panel {
+            background: rgba(15, 23, 42, 0.76);
+            border: 1px solid var(--line);
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow);
         }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(15, 23, 42, 0.45);
+        }
+
+        .panel-head h2 {
+            font-size: 1.15rem;
+            letter-spacing: -0.04em;
+        }
+
+        .chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(96, 165, 250, 0.12);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            color: #bfdbfe;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 760px;
+            border-collapse: collapse;
+        }
+
         th, td {
-            padding: 0.85rem 1.25rem;
             text-align: left;
-            font-size: 0.92rem;
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
         }
+
         th {
-            background: #2563eb;
-            color: #fff;
-            font-weight: 600;
+            background: rgba(15, 23, 42, 0.9);
+            color: #dfeafc;
+            font-weight: 700;
+            letter-spacing: 0.02em;
         }
-        tbody tr:nth-child(even) { background: #f8fafc; }
-        tbody tr:hover { background: #eef2ff; }
-        td { border-bottom: 1px solid #f1f5f9; }
+
+        tbody tr:hover {
+            background: rgba(96, 165, 250, 0.04);
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .meta {
+            display: grid;
+            gap: 2px;
+        }
+
+        .meta strong {
+            font-size: 0.96rem;
+        }
+
+        .meta span {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
         .empty {
-            padding: 1.5rem;
             text-align: center;
-            color: #6b7280;
+            color: var(--muted);
+            padding: 32px 18px;
         }
     </style>
 </head>
 <body>
+    <div class="shell">
+        <div class="topbar">
+            <div>
+                <h1>User Directory</h1>
+                <div class="summary">Manage team members and account profiles.</div>
+            </div>
+            <div class="chip"><?= is_array($users ?? null) ? count($users) : 0; ?> members</div>
+        </div>
 
-<h1>Users</h1>
+        <div class="panel">
+            <div class="panel-head">
+                <h2>All members</h2>
+            </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Username</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (!empty($users)): ?>
-            <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?= htmlspecialchars($user['id']); ?></td>
-                    <td><?= htmlspecialchars($user['firstname']); ?></td>
-                    <td><?= htmlspecialchars($user['lastname']); ?></td>
-                    <td><?= htmlspecialchars($user['email']); ?></td>
-                    <td><?= htmlspecialchars($user['username']); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr><td colspan="5" class="empty">No users found.</td></tr>
-        <?php endif; ?>
-    </tbody>
-</table>
-
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Member ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($users)): ?>
+                            <?php foreach ($users as $user): ?>
+                                <?php
+                                    $firstname = $user['firstname'] ?? 'User';
+                                    $lastname = $user['lastname'] ?? '';
+                                    $initials = strtoupper(substr($firstname, 0, 1) . substr($lastname, 0, 1));
+                                ?>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <span class="avatar"><?= htmlspecialchars($initials ?: 'U'); ?></span>
+                                            <div class="meta">
+                                                <strong><?= htmlspecialchars(trim($firstname . ' ' . $lastname)); ?></strong>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><?= htmlspecialchars($user['email'] ?? ''); ?></td>
+                                    <td>@<?= htmlspecialchars($user['username'] ?? ''); ?></td>
+                                    <td>#<?= htmlspecialchars($user['id'] ?? ''); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="4" class="empty">No users found.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
