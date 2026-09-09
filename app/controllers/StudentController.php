@@ -8,7 +8,7 @@ class StudentController extends Controller
         'student_id'  => 'MCC2024-00104',
         'name'        => 'Apostol, rhemz jhon Cyrus C.',
         'course'      => 'BSIT',
-        'year'        => '3rd Year',
+        'year'        => '3r Year',
         'section'     => '3-F3',
         'email'       => 'rhemzjhoncyruscapostol@gmail.com',
         'address'     => 'Puerto Galera',
