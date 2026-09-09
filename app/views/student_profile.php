@@ -1,49 +1,107 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
-function student_profile_escape($value) {
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= student_profile_escape($student['name']) ?> | Profile</title>
+    <title>Student Information — <?= htmlspecialchars($name); ?></title>
     <style>
-        :root { --navy: #14253d; --blue: #3c77b6; --gold: #e5ad42; --cloud: #eef3f7; --white: #fff; }
-        * { box-sizing: border-box; }
-        body { margin: 0; background: var(--cloud); color: var(--navy); font-family: Arial, sans-serif; }
-        .page { min-height: 100vh; padding: 30px 24px; }
-        .card { background: var(--white); box-shadow: 0 18px 50px rgba(20,37,61,.12); margin: auto; max-width: 820px; overflow: hidden; }
-        .top { background: var(--navy); color: var(--white); padding: 46px 52px; position: relative; }
-        .top::after { background: var(--gold); content: ''; height: 8px; left: 0; position: absolute; right: 0; top: 0; }
-        .top a { color: #b9d4ee; font-size: .82rem; text-decoration: none; }
-        .protected-badge { align-items: center; background: rgba(229,173,66,.14); border: 1px solid rgba(229,173,66,.65); color: #f4ce78; display: inline-flex; font-size: .68rem; font-weight: 700; gap: 9px; letter-spacing: .12em; margin-top: 24px; padding: 9px 12px; text-transform: uppercase; }
-        .lock { border: 2px solid currentColor; border-radius: 2px; display: inline-block; height: 12px; position: relative; width: 13px; }
-        .lock::before { border: 2px solid currentColor; border-bottom: 0; border-radius: 8px 8px 0 0; content: ''; height: 8px; left: 1px; position: absolute; top: -9px; width: 7px; }
-        h1 { font-size: clamp(2.4rem, 7vw, 4.8rem); font-weight: 400; letter-spacing: -.04em; margin: 42px 0 8px; }
-        .top p { color: #b9c8d8; margin: 0; }
-        .body { padding: 44px 52px 52px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 42px; }
-        .item { border-bottom: 1px solid #dbe3ea; padding: 18px 0; }
-        .item label { color: var(--blue); display: block; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-        .item p { font-size: 1.05rem; margin: 8px 0 0; }
-        .back { background: var(--blue); color: var(--white); display: inline-block; font-size: .82rem; margin-top: 36px; padding: 13px 18px; text-decoration: none; }
-        @media (max-width: 600px) { .top, .body { padding-left: 26px; padding-right: 26px; } .grid { grid-template-columns: 1fr; } }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f4f7fb 0%, #e8edf5 100%);
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1.5rem;
+        }
+        nav { margin-bottom: 2.5rem; }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            margin: 0 0.75rem;
+            font-size: 0.95rem;
+        }
+        nav a:hover { text-decoration: underline; }
+        .id-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 460px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .id-header {
+            background: #2563eb;
+            color: #fff;
+            padding: 1.75rem 2rem;
+            text-align: center;
+        }
+        .id-header h1 { font-size: 1.3rem; letter-spacing: 0.03em; }
+        .avatar {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: #fff;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.75rem auto 0;
+        }
+        .id-body { padding: 1.75rem 2rem; }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.92rem;
+        }
+        .row:last-child { border-bottom: none; }
+        .row .label { color: #6b7280; font-weight: 600; }
+        .row .value { text-align: right; max-width: 60%; }
+        .bio {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #f1f5f9;
+            font-size: 0.88rem;
+            color: #4b5563;
+            line-height: 1.6;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
-<main class="page"><article class="card">
-    <header class="top"><a href="<?= student_profile_escape(site_url('student')) ?>">← Back to Student Desk</a><div class="protected-badge"><span class="lock" aria-hidden="true"></span>Middleware protected route</div><h1>Student<br>Profile</h1><p><?= student_profile_escape($student['student_id']) ?> · <?= student_profile_escape($student['course']) ?></p></header>
-    <section class="body"><div class="grid">
-        <div class="item"><label>Full name</label><p><?= student_profile_escape($student['name']) ?></p></div>
-        <div class="item"><label>Email</label><p><?= student_profile_escape($student['email']) ?></p></div>
-        <div class="item"><label>Year level</label><p><?= student_profile_escape($student['year']) ?></p></div>
-        <div class="item"><label>Section</label><p><?= student_profile_escape($student['section']) ?></p></div>
-        <div class="item"><label>Location</label><p><?= student_profile_escape($student['location']) ?></p></div>
-        <div class="item"><label>Interests</label><p><?= student_profile_escape($student['interests']) ?></p></div>
-    </div><a class="back" href="<?= student_profile_escape(site_url('student')) ?>">Return home</a></section>
-</article></main>
+
+<nav>
+    <a href="<?= site_url('student'); ?>">Home</a>
+    <a href="<?= site_url('student/profile'); ?>">Student Profile</a>
+</nav>
+
+<div class="id-card">
+    <div class="id-header">
+        <h1>Student Information</h1>
+        <div class="avatar"><?= htmlspecialchars(strtoupper(substr($name, 0, 1))); ?></div>
+    </div>
+    <div class="id-body">
+        <div class="row"><span class="label">Student ID</span><span class="value"><?= htmlspecialchars($student_id); ?></span></div>
+        <div class="row"><span class="label">Name</span><span class="value"><?= htmlspecialchars($name); ?></span></div>
+        <div class="row"><span class="label">Course</span><span class="value"><?= htmlspecialchars($course); ?></span></div>
+        <div class="row"><span class="label">Year Level</span><span class="value"><?= htmlspecialchars($year); ?></span></div>
+        <div class="row"><span class="label">Section</span><span class="value"><?= htmlspecialchars($section); ?></span></div>
+        <div class="row"><span class="label">Email</span><span class="value"><?= htmlspecialchars($email); ?></span></div>
+        <div class="row"><span class="label">Address</span><span class="value"><?= htmlspecialchars($address); ?></span></div>
+        <div class="row"><span class="label">Contact</span><span class="value"><?= htmlspecialchars($contact); ?></span></div>
+        <div class="row"><span class="label">Skills</span><span class="value"><?= htmlspecialchars($skills); ?></span></div>
+        <p class="bio">"<?= htmlspecialchars($bio); ?>"</p>
+    </div>
+</div>
+
 </body>
 </html>
