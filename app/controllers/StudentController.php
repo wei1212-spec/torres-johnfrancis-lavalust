@@ -4,11 +4,12 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class StudentController extends Controller
 {
+
     private $student = [
         'student_id'  => 'MCC2024-00104',
         'name'        => 'Apostol, rhemz jhon Cyrus C.',
         'course'      => 'BSIT',
-        'year'        => '3r Year',
+        'year'        => '3rd Year',
         'section'     => '3-F3',
         'email'       => 'rhemzjhoncyruscapostol@gmail.com',
         'address'     => 'Puerto Galera',

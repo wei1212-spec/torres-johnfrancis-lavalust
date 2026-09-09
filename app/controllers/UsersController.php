@@ -10,9 +10,9 @@ class UsersController extends Controller
     public function index()
     {
         $this->call->database();
-        $this->call->model('UsersModel');
+        $this->call->model('DirectoryUserModel');
 
-        $data['users'] = $this->UsersModel->all();
+        $data['users'] = $this->DirectoryUserModel->all();
 
         $this->call->view('users_view', $data);
     }
