@@ -270,26 +270,29 @@ class Database {
 
         try {
             if ($driver === 'mysql' && (!empty($database_config['ssl_ca']) || !empty($database_config['ssl_ca_content']))) {
-                if (!is_readable($database_config['ssl_ca']) && !empty($database_config['ssl_ca_content'])) {
+                $ssl_ca_path = $database_config['ssl_ca'] ?? '';
+
+                if (!empty($database_config['ssl_ca_content']) && (empty($ssl_ca_path) || !is_readable($ssl_ca_path))) {
                     $temporary_ca = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'lavalust-aiven-ca.pem';
                     if (file_put_contents($temporary_ca, $database_config['ssl_ca_content']) === false) {
                         throw new PDOException('Unable to create the temporary MySQL SSL CA file.');
                     }
                     chmod($temporary_ca, 0600);
                     $database_config['ssl_ca'] = $temporary_ca;
+                    $ssl_ca_path = $temporary_ca;
                 }
 
-                if (!is_readable($database_config['ssl_ca'])) {
-                    throw new PDOException(
-                        'MySQL SSL CA file is not readable at ' . $database_config['ssl_ca']
-                        . ' (host ' . $host . ', port ' . $port . ').'
-                    );
+                if (!empty($ssl_ca_path) && !is_readable($ssl_ca_path)) {
+                    $database_config['ssl_ca'] = '';
+                    $database_config['ssl_ca_content'] = '';
                 }
 
-                if (class_exists('Pdo\\Mysql')) {
-                    $options[\Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
-                } else {
-                    $options[PDO::MYSQL_ATTR_SSL_CA] = $database_config['ssl_ca'];
+                if (!empty($database_config['ssl_ca'])) {
+                    if (class_exists('Pdo\\Mysql')) {
+                        $options[\Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
+                    } else {
+                        $options[PDO::MYSQL_ATTR_SSL_CA] = $database_config['ssl_ca'];
+                    }
                 }
             }
 
